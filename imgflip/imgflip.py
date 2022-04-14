@@ -8,7 +8,7 @@ from discord.ext.commands.errors import BadArgument
 from redbot.core import Config, checks, commands
 from redbot.core.utils.chat_formatting import pagify
 
-SEARCH_URL = "https://api.imgflip.com/get_memes2"
+SEARCH_URL = "https://api.imgflip.com/get_memes"
 CAPTION_URL = "https://api.imgflip.com/caption_image"
 log = logging.getLogger("red.trusty-cogs.ImgFlip")
 
