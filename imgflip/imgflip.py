@@ -110,9 +110,9 @@ class Imgflip(commands.Cog):
     async def getmemes(self, ctx: commands.Context) -> None:
         """List memes with names that can be used"""
         await ctx.trigger_typing()
-        await self.get_memes(ctx)
+        await self.get_memes2(ctx)
 
-    async def get_memes(self, ctx):
+    async def get_memes2(self, ctx):
         async with aiohttp.ClientSession() as session:
             async with session.get(SEARCH_URL) as r:
                 results = await r.json()
