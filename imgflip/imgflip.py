@@ -13,7 +13,7 @@ CAPTION_URL = "https://api.imgflip.com/caption_image"
 log = logging.getLogger("red.trusty-cogs.ImgFlip")
 
 
-class Meme(Converter):
+class Meme2(Converter):
     """
     This will accept user ID's, mentions, and perform a fuzzy search for
     members within the guild and return a list of member objects
@@ -125,7 +125,7 @@ class Imgflip(commands.Cog):
             await ctx.send(page.lstrip(", "))
 
     @commands.command()
-    async def meme2(self, ctx: commands.Context, meme2: Meme2, *, text: str) -> None:
+    async def meme(self, ctx: commands.Context, meme: Meme2, *, text: str) -> None:
         """Create custom memes from imgflip
 
         `meme_name` can be the name of the meme to use or the ID from imgflip
