@@ -8,12 +8,12 @@ from discord.ext.commands.errors import BadArgument
 from redbot.core import Config, checks, commands
 from redbot.core.utils.chat_formatting import pagify
 
-SEARCH_URL = "https://api.imgflip.com/get_memes"
+SEARCH_URL = "https://api.imgflip.com/get_memes2"
 CAPTION_URL = "https://api.imgflip.com/caption_image"
 log = logging.getLogger("red.trusty-cogs.ImgFlip")
 
 
-class Meme2(Converter):
+class meme2(Converter):
     """
     This will accept user ID's, mentions, and perform a fuzzy search for
     members within the guild and return a list of member objects
@@ -31,9 +31,9 @@ class Meme2(Converter):
                 async with aiohttp.ClientSession() as session:
                     async with session.get(SEARCH_URL) as r:
                         results = await r.json()
-                for memes in results["data"]["memes"]:
-                    if argument.lower() in memes["name"].lower():
-                        result = memes["id"]
+                for memes2 in results["data"]["memes2"]:
+                    if argument.lower() in memes2["name"].lower():
+                        result = memes2["id"]
             except Exception:
                 result = None
 
@@ -41,7 +41,7 @@ class Meme2(Converter):
             result = argument
 
         if result is None:
-            raise BadArgument('Meme "{}" not found'.format(argument))
+            raise BadArgument('meme2 "{}" not found'.format(argument))
         arg = argument
         if " " in argument:
             arg = f'"{argument}"'
@@ -56,7 +56,7 @@ class ImgFlipAPIError(Exception):
 
 class Imgflip(commands.Cog):
     """
-    Generate memes from imgflip.com API
+    Generate memes2 from imgflip.com API
     """
 
     __author__ = ["Twentysix", "TrustyJAID"]
@@ -81,13 +81,13 @@ class Imgflip(commands.Cog):
         """
         return
 
-    async def get_meme(
-        self, meme: int, boxes: List[Dict[str, str]], username: str, password: str
+    async def get_meme2(
+        self, meme2: int, boxes: List[Dict[str, str]], username: str, password: str
     ) -> str:
         log.debug(boxes)
         try:
             form_data = aiohttp.FormData()
-            form_data.add_field("template_id", meme)
+            form_data.add_field("template_id", meme2)
             form_data.add_field("username", username)
             form_data.add_field("password", password)
             i = 0
@@ -102,13 +102,13 @@ class Imgflip(commands.Cog):
             if not result["success"]:
                 raise ImgFlipAPIError(result["error_message"])
         except Exception as e:
-            log.error("Error grabbing meme", exc_info=True)
+            log.error("Error grabbing meme2", exc_info=True)
             raise ImgFlipAPIError(e)
         return result["data"]["url"]
 
-    @commands.command(alias=["listmemes"])
-    async def getmemes(self, ctx: commands.Context) -> None:
-        """List memes with names that can be used"""
+    @commands.command(alias=["listmemes2"])
+    async def getmemes2(self, ctx: commands.Context) -> None:
+        """List memes2 with names that can be used"""
         await ctx.trigger_typing()
         await self.get_memes2(ctx)
 
@@ -116,24 +116,24 @@ class Imgflip(commands.Cog):
         async with aiohttp.ClientSession() as session:
             async with session.get(SEARCH_URL) as r:
                 results = await r.json()
-        memelist = ", ".join(m["name"] for m in results["data"]["memes"])
-        memelist += (
-            "\nFind a meme at <https://imgflip.com/memetemplates> - "
+        meme2list = ", ".join(m["name"] for m in results["data"]["memes2"])
+        meme2list += (
+            "\nFind a meme2 at <https://imgflip.com/meme2templates> - "
             "click `Blank Template` and get the Template ID for more!"
         )
-        for page in pagify(memelist, [", "]):
+        for page in pagify(meme2list, [", "]):
             await ctx.send(page.lstrip(", "))
 
     @commands.command()
-    async def meme2(self, ctx: commands.Context, *, text: str) -> None:
-        """Create custom memes from imgflip
+    async def meme2(self, ctx: commands.Context,, *, text: str) -> None:
+        """Create custom memes2 from imgflip
 
-        `meme_name` can be the name of the meme to use or the ID from imgflip
+        `meme2_name` can be the name of the meme2 to use or the ID from imgflip
         `text` is lines of text separated by `|`
-        Do `[p]getmemes` to see which meme names will work
+        Do `[p]getmemes2` to see which meme2 names will work
 
-        You can get meme ID's from https://imgflip.com/memetemplates
-        click blank template and use the Template ID in place of meme_name
+        You can get meme2 ID's from https://imgflip.com/meme2templates
+        click blank template and use the Template ID in place of meme2_name
         """
         user_pass = await self.config.all()
         if not user_pass["username"] or not user_pass["password"]:
@@ -143,18 +143,18 @@ class Imgflip(commands.Cog):
             )
         await ctx.trigger_typing()
         text = "".join(
-            ctx.message.clean_content.replace(f"{ctx.prefix}{ctx.invoked_with} {meme[1]}", "")
+            ctx.message.clean_content.replace(f"{ctx.prefix}{ctx.invoked_with} {meme2[1]}", "")
         )
         search_text: List[str] = re.split(r"\|", text)
         boxes = [{"text": v, "color": "#ffffff", "outline_color": "#000000"} for v in search_text]
         try:
-            url = await self.get_meme(meme[0], boxes, user_pass["username"], user_pass["password"])
+            url = await self.get_meme2(meme2[0], boxes, user_pass["username"], user_pass["password"])
         except Exception:
-            return await ctx.send("Something went wrong generating a meme.")
+            return await ctx.send("Something went wrong generating a meme2.")
 
         await ctx.send(url)
 
-    @commands.command(name="imgflipset", aliases=["memeset"])
+    @commands.command(name="imgflipset", aliases=["memes2et"])
     @checks.is_owner()
     async def imgflip_set(self, ctx: commands.Context, username: str, password: str) -> None:
         """Command for setting required access information for the API"""
