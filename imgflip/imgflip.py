@@ -125,7 +125,7 @@ class Imgflip(commands.Cog):
             await ctx.send(page.lstrip(", "))
 
     @commands.command()
-    async def meme(self, ctx: commands.Context, meme: Meme2, *, text: str) -> None:
+    async def meme(self, ctx: commands.Context, *, text: str) -> None:
         """Create custom memes from imgflip
 
         `meme_name` can be the name of the meme to use or the ID from imgflip
