@@ -31,9 +31,9 @@ class meme2(Converter):
                 async with aiohttp.ClientSession() as session:
                     async with session.get(SEARCH_URL) as r:
                         results = await r.json()
-                for memes2 in results["data"]["memes2"]:
-                    if argument.lower() in memes2["name"].lower():
-                        result = memes2["id"]
+                for memes in results["data"]["memes"]:
+                    if argument.lower() in memes["name"].lower():
+                        result = memes["id"]
             except Exception:
                 result = None
 
@@ -56,7 +56,7 @@ class ImgFlipAPIError(Exception):
 
 class Imgflip(commands.Cog):
     """
-    Generate memes2 from imgflip.com API
+    Generate memes from imgflip.com API
     """
 
     __author__ = ["Twentysix", "TrustyJAID"]
@@ -106,17 +106,17 @@ class Imgflip(commands.Cog):
             raise ImgFlipAPIError(e)
         return result["data"]["url"]
 
-    @commands.command(alias=["listmemes2"])
-    async def getmemes2(self, ctx: commands.Context) -> None:
-        """List memes2 with names that can be used"""
+    @commands.command(alias=["listmemes"])
+    async def getmemes(self, ctx: commands.Context) -> None:
+        """List memes with names that can be used"""
         await ctx.trigger_typing()
-        await self.get_memes2(ctx)
+        await self.get_memes(ctx)
 
-    async def get_memes2(self, ctx):
+    async def get_memes(self, ctx):
         async with aiohttp.ClientSession() as session:
             async with session.get(SEARCH_URL) as r:
                 results = await r.json()
-        meme2list = ", ".join(m["name"] for m in results["data"]["memes2"])
+        meme2list = ", ".join(m["name"] for m in results["data"]["memes"])
         meme2list += (
             "\nFind a meme2 at <https://imgflip.com/meme2templates> - "
             "click `Blank Template` and get the Template ID for more!"
@@ -126,11 +126,11 @@ class Imgflip(commands.Cog):
 
     @commands.command()
     async def meme2(self, ctx: commands.Context, text: str) -> None:
-        """Create custom memes2 from imgflip
+        """Create custom memes from imgflip
 
         `meme2_name` can be the name of the meme2 to use or the ID from imgflip
         `text` is lines of text separated by `|`
-        Do `[p]getmemes2` to see which meme2 names will work
+        Do `[p]getmemes` to see which meme2 names will work
 
         You can get meme2 ID's from https://imgflip.com/meme2templates
         click blank template and use the Template ID in place of meme2_name
@@ -154,7 +154,7 @@ class Imgflip(commands.Cog):
 
         await ctx.send(url)
 
-    @commands.command(name="imgflipset", aliases=["memes2et"])
+    @commands.command(name="imgflipset", aliases=["memeset"])
     @checks.is_owner()
     async def imgflip_set(self, ctx: commands.Context, username: str, password: str) -> None:
         """Command for setting required access information for the API"""
