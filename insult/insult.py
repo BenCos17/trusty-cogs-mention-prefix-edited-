@@ -367,6 +367,7 @@ insults: List[str] = [
     _("Your advice is about as useful as a paper-mache bomb shelter."),
     _("Is it sad that your theme song might as well have a 0/0 signature?"),
     _("You're so fat, you make the galaxy look like it's on the molecular scale."),
+    _("You're so ugly when santa saw you he said ho ho holy shit."),
 ]
 
 
