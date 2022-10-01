@@ -12,6 +12,7 @@ insults: List[str] = [
     _(
         "You're so fat that when you were diagnosed with a flesh eating bacteria - the doctors gave you 87 years to live."
     ),
+    _("One of the first things developed in the human fetus is the ass, in which many people still have not surpassed that stage- including you"),
     _("You're so fat you've got more chins than a Hong Kong phone book."),
     _("Yo Mama so fat she's on both sides of the family."),
     _("Yo Mama so fat that even Dora couldn't explore her."),
