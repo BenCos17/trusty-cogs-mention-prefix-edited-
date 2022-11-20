@@ -12,6 +12,7 @@ insults: List[str] = [
     _(
         "You're so fat that when you were diagnosed with a flesh eating bacteria - the doctors gave you 87 years to live."
     ),
+    _("Do you have a CDL? You need one with driving that dump truck of an ass around."),
     _("You’re so ugly you can be a modern art master piece"),
     _("One of the first things developed in the human fetus is the ass, in which many people still have not surpassed that stage- including you"),
     _("You're so fat you've got more chins than a Hong Kong phone book."),
