@@ -371,6 +371,7 @@ insults: List[str] = [
     _("Is it sad that your theme song might as well have a 0/0 signature?"),
     _("You're so fat, you make the galaxy look like it's on the molecular scale."),
     _("You're so ugly when santa saw you he said ho ho holy shit."),
+    _("https://media.discordapp.net/attachments/966765437994029076/1113150879688818799/IMG_8323.jpg"),
 ]
 
 
