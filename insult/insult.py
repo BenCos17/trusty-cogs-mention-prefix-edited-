@@ -13,6 +13,7 @@ insults: List[str] = [
         "You're so fat that when you were diagnosed with a flesh eating bacteria - the doctors gave you 87 years to live."
     ),
     _("your IQ is lower then the titanic"),
+    _("your IQ is so low that the chamber of secrets is a pothole compared to it "),
     _("Your so bad if you were in Harry Pottor you'd ask to borrow the Kwikspell course from Argus Filch."),
     _("Do you have a CDL? You need one with driving that dump truck of an ass around."),
     _("You’re so ugly you can be a modern art master piece"),
