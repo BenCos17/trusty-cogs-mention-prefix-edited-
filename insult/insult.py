@@ -14,6 +14,7 @@ insults: List[str] = [
     _(
         "You're so fat that when you were diagnosed with a flesh eating bacteria - the doctors gave you 87 years to live."
     ),
+    _("Well, aren't you a walking advertisement for birth control."),
     _("your IQ is lower then the titanic"),
     _("your IQ is so low that the chamber of secrets is a pothole compared to it "),
     _("Your so bad if you were in Harry Pottor you'd ask to borrow the Kwikspell course from Argus Filch."),
