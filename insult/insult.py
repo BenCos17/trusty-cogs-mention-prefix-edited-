@@ -1,8 +1,10 @@
 from random import choice
+from typing import Optional
 
 import discord
-from redbot.core import commands
+from redbot.core import Config, commands
 from redbot.core.i18n import Translator, cog_i18n
+from redbot.core.utils.chat_formatting import pagify
 
 _ = Translator("Insult", __file__)
 from .insults_data import insults
@@ -16,6 +18,8 @@ class Insult(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        self.config = Config.get_conf(self, identifier=1682738412, force_registration=True)
+        self.config.register_guild(custom_insults=[])
 
     def format_help_for_context(self, ctx: commands.Context) -> str:
         """
@@ -31,7 +35,7 @@ class Insult(commands.Cog):
         return
 
     @commands.command(aliases=["takeitback"])
-    async def insult(self, ctx: commands.Context, user: discord.Member = None) -> None:
+    async def insult(self, ctx: commands.Context, user: Optional[discord.Member] = None) -> None:
         """
         Insult the user
 
@@ -39,6 +43,14 @@ class Insult(commands.Cog):
         """
 
         msg = " "
+        all_insults = list(insults)
+        if ctx.guild is not None:
+            all_insults.extend(await self.config.guild(ctx.guild).custom_insults())
+
+        if not all_insults:
+            await ctx.send(_("No insults are configured."))
+            return
+
         if user:
 
             if user.id == self.bot.user.id:
@@ -54,6 +66,61 @@ class Insult(commands.Cog):
                 await ctx.send(f"{ctx.author.mention}{choice(bot_msg)}")
 
             else:
-                await ctx.send(user.mention + msg + choice(insults))
+                await ctx.send(user.mention + msg + choice(all_insults))
         else:
-            await ctx.send(ctx.message.author.mention + msg + choice(insults))
+            await ctx.send(ctx.message.author.mention + msg + choice(all_insults))
+
+    @commands.group()
+    @commands.guild_only()
+    @commands.admin_or_permissions(manage_guild=True)
+    async def insultset(self, ctx: commands.Context) -> None:
+        """Manage custom insults for this server."""
+
+    @insultset.command(name="add")
+    async def insultset_add(self, ctx: commands.Context, *, insult_text: str) -> None:
+        """Add a custom insult."""
+        insult_text = insult_text.strip()
+        if not insult_text:
+            await ctx.send(_("Insult text cannot be empty."))
+            return
+
+        async with self.config.guild(ctx.guild).custom_insults() as custom_insults:
+            if insult_text in custom_insults:
+                await ctx.send(_("That custom insult already exists."))
+                return
+            custom_insults.append(insult_text)
+
+        await ctx.send(_("Custom insult added."))
+
+    @insultset.command(name="remove", aliases=["del", "delete"])
+    async def insultset_remove(self, ctx: commands.Context, index: int) -> None:
+        """Remove a custom insult by its list number."""
+        async with self.config.guild(ctx.guild).custom_insults() as custom_insults:
+            if index < 1 or index > len(custom_insults):
+                await ctx.send(_("Invalid index."))
+                return
+            removed = custom_insults.pop(index - 1)
+
+        await ctx.send(_("Removed custom insult: {removed}").format(removed=removed))
+
+    @insultset.command(name="list")
+    async def insultset_list(self, ctx: commands.Context) -> None:
+        """List custom insults for this server."""
+        custom_insults = await self.config.guild(ctx.guild).custom_insults()
+        if not custom_insults:
+            await ctx.send(_("No custom insults configured for this server."))
+            return
+
+        lines = [f"{i}. {text}" for i, text in enumerate(custom_insults, start=1)]
+        for page in pagify("\n".join(lines), page_length=1800):
+            await ctx.send(page)
+
+    @insultset.command(name="clear")
+    async def insultset_clear(self, ctx: commands.Context, confirm: bool = False) -> None:
+        """Clear all custom insults for this server."""
+        if not confirm:
+            await ctx.send(_("This will remove all custom insults. Run this again with `true` to confirm."))
+            return
+
+        await self.config.guild(ctx.guild).custom_insults.set([])
+        await ctx.send(_("All custom insults have been cleared."))
