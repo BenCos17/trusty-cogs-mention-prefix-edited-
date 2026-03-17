@@ -9,7 +9,7 @@ _ = Translator("Insult", __file__)
 
 insults: List[str] = [
     _("you're as useful as a screen door on a submarine ."),
-    _("Yo Mama so fat she sued Xbox 360 for guessing her weight."),
+    _("Yo Mama so fat she sued GreedYbox 360 for guessing her weight."),
 
     _(
         "You're so fat that when you were diagnosed with a flesh eating bacteria - the doctors gave you 87 years to live."
@@ -50,7 +50,7 @@ insults: List[str] = [
         "Yo Mama so dumb I told her Christmas was around the corner and she went looking for it."
     ),
     _("You're so dumb it took you 2 hours to watch 60 minutes."),
-    _("Yo Mama so dumb she bought tickets to Xbox Live."),
+    _("Yo Mama so dumb she bought tickets to GreedYbox Live."),
     _("You're so dumb that you thought The Exorcist was a workout video."),
     _(
         "You're so ugly that you went to the salon and it took 3 hours just to get an estimate."
@@ -378,6 +378,39 @@ insults: List[str] = [
     _("You're so fat, you make the galaxy look like it's on the molecular scale."),
     _("You're so ugly when santa saw you he said ho ho holy shit."),
     _("https://media.discordapp.net/attachments/966765437994029076/1113150879688818799/IMG_8323.jpg"),
+    _("You're the reason shampoo has instructions."),
+    _("I'd like to insult you, but I'm afraid I wouldn't do as good a job as nature did."),
+    _("You're like a cloud. When you disappear, it's a beautiful day."),
+    _("If I wanted to kill myself, I'd climb your ego and jump to your IQ."),
+    _("You have a room-temperature IQ... in Celsius."),
+    _("You're not the dumbest person in the world, but you better hope they don't die."),
+    _("You're the human equivalent of a participation trophy."),
+    _("You look like a ‘before’ picture for an antidepressant."),
+    _("You're like a software update. Every time I see you, I think, 'Not now.'"),
+    _("You're so fat, your patronus is a Thanksgiving turkey."),
+    _("You're so fat, when you wear a 'B' on your belt, people ask if it stands for 'Barge'."),
+    _("You're so fat, you got 'Group Rate' at a buffet by yourself."),
+    _("Yo Mama is so confusing, even Google couldn't find her results."),
+    _("Yo Mama is so old, her social security number is 1."),
+    _("Your family tree is a straight line."),
+    _("You couldn't find your way out of a wet paper bag with a map and a flashlight."),
+    _("I'm not saying you're ugly, but if you were a dog, you'd be a pug... in a blender."),
+    _("You have the perfect face for radio and a great voice for silent movies."),
+    _("If you were any more inbred, you'd be a sandwich."),
+    _("You're so fat, you have to use a mattress as a Band-Aid."),
+    _("I've seen people like you before, but I usually have to pay admission."),
+    _("You're the reason the gene pool needs a filter."),
+    _("I'd agree with you, but then we'd both be wrong."),
+    _("You're about as useful as a chocolate teapot."),
+    _("You've got a face only a mother could love, and even she's reconsidering."),
+    _("If your brain was made of dynamite, you wouldn't have enough to blow your nose."),
+    _("You're so slow, it takes you an hour to cook minute rice."),
+    _("Is your name 'WiFi'? Because I'm feeling absolutely no connection."),
+    _("You're so fat, when you go to a restaurant, you look at the menu and say 'Okay.'"),
+    _("You're a gray sprinkle on a rainbow cupcake."),
+    _("I don't have the energy to pretend to like you today."),
+    _("You are the human version of a typo."),
+    _("I'd give you a piece of my mind, but I can see you're already struggling with the little you have."),
 ]
 
 
