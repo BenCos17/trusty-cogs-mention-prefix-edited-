@@ -13,8 +13,8 @@ from .insults_data import insults
 class Insult(commands.Cog):
     """Airenkun's Insult Cog"""
 
-    __author__ = ["Airen", "JennJenn", "TrustyJAID"]
-    __version__ = "1.0.0"
+    __author__ = ["Airen", "JennJenn", "TrustyJAID","BenCos17",]
+    __version__ = "1.0.1"
 
     def __init__(self, bot):
         self.bot = bot
@@ -37,9 +37,14 @@ class Insult(commands.Cog):
     @commands.command(aliases=["takeitback"])
     async def insult(self, ctx: commands.Context, user: Optional[discord.Member] = None) -> None:
         """
-        Insult the user
+        Send a random insult.
 
-        `user` the user you would like to insult
+        If `user` is provided, that member is insulted.
+        If `user` is omitted, you are insulted.
+
+        Examples:
+        - `[p]insult @User`
+        - `[p]insult`
         """
 
         msg = " "
@@ -74,11 +79,24 @@ class Insult(commands.Cog):
     @commands.guild_only()
     @commands.admin_or_permissions(manage_guild=True)
     async def insultset(self, ctx: commands.Context) -> None:
-        """Manage custom insults for this server."""
+        """
+        Manage server custom insults.
+
+        Subcommands:
+        - `add <text>`
+        - `list`
+        - `remove <number>`
+        - `clear true`
+        """
 
     @insultset.command(name="add")
     async def insultset_add(self, ctx: commands.Context, *, insult_text: str) -> None:
-        """Add a custom insult."""
+        """
+        Add a custom insult for this server.
+
+        Example:
+        - `[p]insultset add Your custom insult here`
+        """
         insult_text = insult_text.strip()
         if not insult_text:
             await ctx.send(_("Insult text cannot be empty."))
@@ -94,7 +112,13 @@ class Insult(commands.Cog):
 
     @insultset.command(name="remove", aliases=["del", "delete"])
     async def insultset_remove(self, ctx: commands.Context, index: int) -> None:
-        """Remove a custom insult by its list number."""
+        """
+        Remove a custom insult by its list number.
+
+        Use `[p]insultset list` to find the number.
+        Example:
+        - `[p]insultset remove 2`
+        """
         async with self.config.guild(ctx.guild).custom_insults() as custom_insults:
             if index < 1 or index > len(custom_insults):
                 await ctx.send(_("Invalid index."))
@@ -105,7 +129,12 @@ class Insult(commands.Cog):
 
     @insultset.command(name="list")
     async def insultset_list(self, ctx: commands.Context) -> None:
-        """List custom insults for this server."""
+        """
+        List custom insults configured for this server.
+
+        Example:
+        - `[p]insultset list`
+        """
         custom_insults = await self.config.guild(ctx.guild).custom_insults()
         if not custom_insults:
             await ctx.send(_("No custom insults configured for this server."))
@@ -117,7 +146,13 @@ class Insult(commands.Cog):
 
     @insultset.command(name="clear")
     async def insultset_clear(self, ctx: commands.Context, confirm: bool = False) -> None:
-        """Clear all custom insults for this server."""
+        """
+        Clear all custom insults for this server.
+
+        You must confirm with `true`.
+        Example:
+        - `[p]insultset clear true`
+        """
         if not confirm:
             await ctx.send(_("This will remove all custom insults. Run this again with `true` to confirm."))
             return
